@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- HERO -->
+
+{% if featured_movies %}
+    {% for movie in featured_movies|slice:":1" %}
+
+    <section class="hero">
+
+        {% if movie.banner %}
+            <img src="{{ movie.banner.url }}" class="hero-image" alt="{{ movie.title }}">
+        {% else %}
+            <img src="{% static 'image/banner.jpg' %}" class="hero-image" alt="Banner">
+        {% endif %}
+
+        <div class="hero-content">
+
+            <span class="tag">🔥 Featured Movie</span>
+
+            <h1>{{ movie.title }}</h1>
+
+            <p>{{ movie.description }}</p>
+
+            <a href="{% url 'details' movie.id %}" class="watch-btn">
+                ▶ Watch Now
+            </a>
+
+        </div>
+
+    </section>
+
+    {% endfor %}
+{% endif %}
+
+
+<!-- SEARCH -->
+
+<form method="GET" class="search-box">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Search Movies..."
+        value="{{ search|default:'' }}">
+
+    <button type="submit">
+        🔍
+    </button>
+
+</form>
+
+
+<!-- TRENDING -->
+
+<h2 class="section-title">🔥 Trending Movies</h2>
+
+<div class="movie-grid">
+
+{% for movie in trending_movies %}
+
+<div class="movie-card">
+
+    <div class="poster">
+
+        {% if movie.poster %}
+            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        {% else %}
+            <img src="{% static 'image/movie1.jpg' %}" alt="Movie">
+        {% endif %}
+
+        <span class="rating">
+            ⭐ {{ movie.rating }}
+        </span>
+
+    </div>
+
+    <div class="movie-info">
+
+        <h3>{{ movie.title }}</h3>
+
+        <p>{{ movie.category }}</p>
+
+        <a href="{% url 'details' movie.id %}" class="watch-btn">
+            View Details
+        </a>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<p>No Trending Movies</p>
+
+{% endfor %}
+
+</div>
+
+
+<!-- ALL MOVIES -->
+
+<h2 class="section-title">🎬 All Movies</h2>
+
+<div class="movie-grid">
+
+{% for movie in movies %}
+
+<div class="movie-card">
+
+    <div class="poster">
+
+        {% if movie.poster %}
+            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        {% else %}
+            <img src="{% static 'image/movie1.jpg' %}" alt="Movie">
+        {% endif %}
+
+        <span class="rating">
+            ⭐ {{ movie.rating }}
+        </span>
+
+    </div>
+
+    <div class="movie-info">
+
+        <h3>{{ movie.title }}</h3>
+
+        <p>{{ movie.category }}</p>
+
+        <a href="{% url 'details' movie.id %}" class="watch-btn">
+            View Details
+        </a>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<h2>No Movies Found 😔</h2>
+
+{% endfor %}
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<h3>MovieVerse 🍿</h3>
+
+<p>© 2026 All Rights Reserved</p>
+
+</footer>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if movie %}
+
+<div class="details-page">
+
+    <!-- Banner -->
+    {% if movie.banner %}
+    <div class="details-banner">
+        <img src="{{ movie.banner.url }}" alt="{{ movie.title }}">
+    </div>
+    {% endif %}
+
+    <div class="details-content">
+
+        <!-- Poster -->
+        <div class="details-left">
+
+            {% if movie.poster %}
+            <img src="{{ movie.poster.url }}" class="details-poster" alt="{{ movie.title }}">
+            {% endif %}
+
+        </div>
+
+        <!-- Details -->
+        <div class="details-right">
+
+            <h1>{{ movie.title }}</h1>
+
+            <div class="movie-meta">
+
+                <span>⭐ {{ movie.rating }}</span>
+
+                <span>{{ movie.year }}</span>
+
+                <span>{{ movie.duration }}</span>
+
+                <span>{{ movie.category }}</span>
+
+                <span>{{ movie.genre }}</span>
+
+            </div>
+
+            <p class="description">
+                {{ movie.description }}
+            </p>
+
+            <div class="buttons">
+
+                <a href="{{ movie.trailer }}" target="_blank" class="watch-btn">
+                    ▶ Watch Trailer
+                </a>
+
+                <a href="{% url 'home' %}" class="back-btn">
+                    ← Back Home
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% else %}
+
+<div class="text-center mt-5">
+    <h2>Movie Not Found 😔</h2>
+</div>
+
+{% endif %}
+
+{% endblock %}
