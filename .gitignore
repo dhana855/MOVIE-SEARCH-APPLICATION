@@ -1,7 +1,6 @@
 # Python
 __pycache__/
 *.py[cod]
-*.sqlite3
 
 # Virtual Environment
 venv/
@@ -12,9 +11,6 @@ env/
 
 # PyCharm
 .idea/
-
-# Django
-db.sqlite3
 
 # Static files
 staticfiles/
