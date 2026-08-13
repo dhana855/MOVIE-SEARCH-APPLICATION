@@ -1,8 +1,16 @@
 from pathlib import Path
-
+import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "your-secret-key"
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-dev-secret-key")
+
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".onrender.com",
+]
 
 DEBUG = True
 
@@ -74,6 +82,7 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     BASE_DIR / "movies" / "static",
 ]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
 
