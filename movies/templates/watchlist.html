@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="section-title">
+❤️ Continue Watching
+</h1>
+
+<p style="color:#b3b3b3;font-size:18px;margin-bottom:35px;">
+Continue watching your favourite movies and TV shows.
+</p>
+
+<div class="movie-grid">
+
+{% for movie in movies %}
+
+<div class="movie-card">
+
+    <div class="poster">
+
+        {% if movie.poster %}
+            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        {% else %}
+            <img src="{% static 'image/movie1.jpg' %}" alt="Movie">
+        {% endif %}
+
+    </div>
+
+    <div class="movie-info">
+
+        <h3>{{ movie.title }}</h3>
+
+        <p>{{ movie.duration }}</p>
+
+        <a href="{% url 'details' movie.id %}" class="watch-btn">
+            Resume
+        </a>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<h2>Your Watchlist is Empty</h2>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

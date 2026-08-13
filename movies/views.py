@@ -32,42 +32,35 @@ def home(request):
 
 
 def movies(request):
-    movies = Movie.objects.all()
-
-    return render(request, "movies.html", {
-        "movies": movies
+    return render(request, "movie_list.html", {
+        "movies": Movie.objects.filter(category="Movie"),
+        "title": "🎬 Movies"
     })
 
-
 def series(request):
-    movies = Movie.objects.filter(category="Series")
-
-    return render(request, "series.html", {
-        "movies": movies
+    return render(request, "movie_list.html", {
+        "movies": Movie.objects.filter(category="Series"),
+        "title": "📺 Series"
     })
 
 
 def trending(request):
-    movies = Movie.objects.filter(trending=True)
-
-    return render(request, "trending.html", {
-        "movies": movies
+    return render(request, "movie_list.html", {
+        "movies": Movie.objects.filter(trending=True),
+        "title": "🔥 Trending Movies"
     })
 
 
 def toprated(request):
-    movies = Movie.objects.order_by("-rating")
-
-    return render(request, "toprated.html", {
-        "movies": movies
+    return render(request, "movie_list.html", {
+        "movies": Movie.objects.order_by("-rating"),
+        "title": "⭐ Top Rated Movies"
     })
 
-
 def watchlist(request):
-    movies = Movie.objects.filter(continue_watch=True)
-
-    return render(request, "watchlist.html", {
-        "movies": movies
+    return render(request, "movie_list.html", {
+        "movies": Movie.objects.filter(continue_watch=True),
+        "title": "❤️ Watchlist"
     })
 
 

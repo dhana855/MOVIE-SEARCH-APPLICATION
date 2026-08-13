@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="section-title">
+⭐ Top Rated Movies
+</h1>
+
+<p style="color:#b3b3b3;font-size:18px;margin-bottom:35px;">
+Highest-rated movies selected by viewers.
+</p>
+
+<div class="movie-grid">
+
+{% for movie in movies %}
+
+<div class="movie-card">
+
+    <div class="poster">
+
+        {% if movie.poster %}
+            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        {% else %}
+            <img src="{% static 'image/movie1.jpg' %}" alt="Movie">
+        {% endif %}
+
+        <span class="rating">
+            ⭐ {{ movie.rating }}
+        </span>
+
+    </div>
+
+    <div class="movie-info">
+
+        <h3>{{ movie.title }}</h3>
+
+        <p>{{ movie.genre }}</p>
+
+        <a href="{% url 'details' movie.id %}" class="watch-btn">
+            View Details
+        </a>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<h2>No Top Rated Movies</h2>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

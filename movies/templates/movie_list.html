@@ -3,28 +3,20 @@
 
 {% block content %}
 
-<h1 class="section-title">
-📺 TV Series
-</h1>
-
-<p style="color:#b3b3b3;font-size:18px;margin-bottom:35px;">
-Watch the most popular TV shows, Netflix Originals and trending web series.
-</p>
+<h1 class="section-title">{{ title }}</h1>
 
 <div class="movie-grid">
 
 {% for movie in movies %}
-
-{% if movie.category == "Series" %}
 
 <div class="movie-card">
 
     <div class="poster">
 
         {% if movie.poster %}
-            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
         {% else %}
-            <img src="{% static 'image/movie2.jpg' %}" alt="{{ movie.title }}">
+        <img src="{% static 'image/movie1.jpg' %}" alt="Movie Poster">
         {% endif %}
 
         <span class="rating">
@@ -37,7 +29,9 @@ Watch the most popular TV shows, Netflix Originals and trending web series.
 
         <h3>{{ movie.title }}</h3>
 
-        <p><strong>Genre:</strong> {{ movie.genre }}</p>
+        <p>{{ movie.category }}</p>
+
+        <p>{{ movie.genre }}</p>
 
         <a href="{% url 'details' movie.id %}" class="watch-btn">
             View Details
@@ -47,22 +41,12 @@ Watch the most popular TV shows, Netflix Originals and trending web series.
 
 </div>
 
-{% endif %}
-
 {% empty %}
 
-<h2>No Series Available</h2>
+<h2>No Movies Found 😔</h2>
 
 {% endfor %}
 
 </div>
-
-<footer class="footer">
-
-<h3>🎬 MovieVerse</h3>
-
-<p>Watch Unlimited TV Shows</p>
-
-</footer>
 
 {% endblock %}

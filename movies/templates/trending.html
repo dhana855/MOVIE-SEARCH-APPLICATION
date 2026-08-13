@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="section-title">
+🔥 Trending Now
+</h1>
+
+<p style="color:#b3b3b3;font-size:18px;margin-bottom:35px;">
+The hottest movies and series everyone is watching right now.
+</p>
+
+<div class="movie-grid">
+
+{% for movie in movies %}
+
+<div class="movie-card">
+
+    <div class="poster">
+
+        {% if movie.poster %}
+            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        {% else %}
+            <img src="{% static 'image/movie1.jpg' %}" alt="Movie">
+        {% endif %}
+
+        <span class="rating">
+            ⭐ {{ movie.rating }}
+        </span>
+
+    </div>
+
+    <div class="movie-info">
+
+        <h3>{{ movie.title }}</h3>
+
+        <p><strong>{{ movie.genre }}</strong></p>
+
+        <a href="{% url 'details' movie.id %}" class="watch-btn">
+            View Details
+        </a>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<h2>No Trending Movies Available</h2>
+
+{% endfor %}
+
+</div>
+
+<footer class="footer">
+
+<h3>🔥 Trending Collection</h3>
+
+<p>Updated Frequently</p>
+
+</footer>
+
+{% endblock %}

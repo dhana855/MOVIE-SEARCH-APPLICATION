@@ -3,59 +3,53 @@
 
 {% block content %}
 
-<!-- HERO -->
-
 {% if featured_movies %}
-    {% for movie in featured_movies|slice:":1" %}
+{% for movie in featured_movies|slice:":1" %}
 
-    <section class="hero">
+<section class="hero">
 
-        {% if movie.banner %}
-            <img src="{{ movie.banner.url }}" class="hero-image" alt="{{ movie.title }}">
-        {% else %}
-            <img src="{% static 'image/banner.jpg' %}" class="hero-image" alt="Banner">
-        {% endif %}
+    {% if movie.banner %}
+    <img src="{{ movie.banner.url }}" class="hero-image" alt="{{ movie.title }}">
+    {% else %}
+    <img src="{% static 'image/banner.jpg' %}" class="hero-image" alt="Banner">
+    {% endif %}
 
-        <div class="hero-content">
+    <div class="hero-overlay"></div>
 
-            <span class="tag">🔥 Featured Movie</span>
+    <div class="hero-content">
 
-            <h1>{{ movie.title }}</h1>
+        <span class="hero-tag">🔥 Featured Movie</span>
+        
+        <h1>{{ movie.title }}</h1>
 
-            <p>{{ movie.description }}</p>
+        <p>{{ movie.description|truncatewords:25 }}</p>
 
-            <a href="{% url 'details' movie.id %}" class="watch-btn">
-                ▶ Watch Now
-            </a>
+        <a href="{% url 'details' movie.id %}" class="watch-btn">
+            ▶ Watch Now
+        </a>
 
-        </div>
+    </div>
 
-    </section>
+</section>
 
-    {% endfor %}
+{% endfor %}
 {% endif %}
-
-
-<!-- SEARCH -->
 
 <form method="GET" class="search-box">
 
     <input
         type="text"
         name="search"
-        placeholder="Search Movies..."
+        placeholder="Search your favourite movie..."
         value="{{ search|default:'' }}">
 
-    <button type="submit">
-        🔍
-    </button>
+    <button type="submit">🔍</button>
 
 </form>
 
-
-<!-- TRENDING -->
-
-<h2 class="section-title">🔥 Trending Movies</h2>
+<h2 class="section-title">
+🔥 Trending Movies
+</h2>
 
 <div class="movie-grid">
 
@@ -66,9 +60,9 @@
     <div class="poster">
 
         {% if movie.poster %}
-            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
         {% else %}
-            <img src="{% static 'image/movie1.jpg' %}" alt="Movie">
+        <img src="{% static 'image/movie1.jpg' %}" alt="Movie">
         {% endif %}
 
         <span class="rating">
@@ -81,9 +75,9 @@
 
         <h3>{{ movie.title }}</h3>
 
-        <p>{{ movie.category }}</p>
+        <p>{{ movie.genre }}</p>
 
-        <a href="{% url 'details' movie.id %}" class="watch-btn">
+        <a href="{% url 'details' movie.id %}" class="details-btn">
             View Details
         </a>
 
@@ -93,16 +87,15 @@
 
 {% empty %}
 
-<p>No Trending Movies</p>
+<p>No Trending Movies Available</p>
 
 {% endfor %}
 
 </div>
 
-
-<!-- ALL MOVIES -->
-
-<h2 class="section-title">🎬 All Movies</h2>
+<h2 class="section-title">
+🎬 All Movies
+</h2>
 
 <div class="movie-grid">
 
@@ -113,9 +106,9 @@
     <div class="poster">
 
         {% if movie.poster %}
-            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
         {% else %}
-            <img src="{% static 'image/movie1.jpg' %}" alt="Movie">
+        <img src="{% static 'image/movie1.jpg' %}" alt="Movie">
         {% endif %}
 
         <span class="rating">
@@ -128,9 +121,9 @@
 
         <h3>{{ movie.title }}</h3>
 
-        <p>{{ movie.category }}</p>
+        <p>{{ movie.genre }}</p>
 
-        <a href="{% url 'details' movie.id %}" class="watch-btn">
+        <a href="{% url 'details' movie.id %}" class="details-btn">
             View Details
         </a>
 
@@ -140,20 +133,17 @@
 
 {% empty %}
 
-<h2>No Movies Found 😔</h2>
+<p>No Movies Found.</p>
 
 {% endfor %}
 
 </div>
 
-
-<!-- FOOTER -->
-
 <footer class="footer">
 
-<h3>MovieVerse 🍿</h3>
+    <h3>🎬 MovieVerse</h3>
 
-<p>© 2026 All Rights Reserved</p>
+    <p>© 2026 All Rights Reserved</p>
 
 </footer>
 

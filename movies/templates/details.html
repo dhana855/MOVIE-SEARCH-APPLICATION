@@ -7,25 +7,28 @@
 
 <div class="details-page">
 
-    <!-- Banner -->
-    {% if movie.banner %}
     <div class="details-banner">
-        <img src="{{ movie.banner.url }}" alt="{{ movie.title }}">
+
+        {% if movie.banner %}
+            <img src="{{ movie.banner.url }}" alt="{{ movie.title }}">
+        {% else %}
+            <img src="{% static 'image/banner.jpg' %}" alt="Banner">
+        {% endif %}
+
     </div>
-    {% endif %}
 
     <div class="details-content">
 
-        <!-- Poster -->
         <div class="details-left">
 
             {% if movie.poster %}
-            <img src="{{ movie.poster.url }}" class="details-poster" alt="{{ movie.title }}">
+                <img src="{{ movie.poster.url }}" class="details-poster" alt="{{ movie.title }}">
+            {% else %}
+                <img src="{% static 'image/movie1.jpg' %}" class="details-poster" alt="Movie">
             {% endif %}
 
         </div>
 
-        <!-- Details -->
         <div class="details-right">
 
             <h1>{{ movie.title }}</h1>
@@ -34,28 +37,30 @@
 
                 <span>⭐ {{ movie.rating }}</span>
 
-                <span>{{ movie.year }}</span>
+                <span>📅 {{ movie.year }}</span>
 
-                <span>{{ movie.duration }}</span>
+                <span>⏱ {{ movie.duration }}</span>
 
-                <span>{{ movie.category }}</span>
-
-                <span>{{ movie.genre }}</span>
+                <span>🎬 {{ movie.category }}</span>
 
             </div>
 
             <p class="description">
+
                 {{ movie.description }}
+
             </p>
 
             <div class="buttons">
 
+                {% if movie.trailer %}
                 <a href="{{ movie.trailer }}" target="_blank" class="watch-btn">
                     ▶ Watch Trailer
                 </a>
+                {% endif %}
 
                 <a href="{% url 'home' %}" class="back-btn">
-                    ← Back Home
+                    ← Back to Home
                 </a>
 
             </div>
@@ -68,9 +73,7 @@
 
 {% else %}
 
-<div class="text-center mt-5">
-    <h2>Movie Not Found 😔</h2>
-</div>
+<h2>Movie Not Found</h2>
 
 {% endif %}
 
