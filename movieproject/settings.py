@@ -1,8 +1,14 @@
 from pathlib import Path
 import os
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "django-dev-secret-key")
+
+# SECURITY
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-dev-secret-key"
+)
 
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
@@ -12,9 +18,8 @@ ALLOWED_HOSTS = [
     ".onrender.com",
 ]
 
-DEBUG = True
 
-ALLOWED_HOSTS = []
+# APPLICATIONS
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -23,12 +28,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    
-    'rest_framework',
+
+    "rest_framework",
 
     "movies",
-    'accounts',
+    "accounts",
 ]
+
+
+# MIDDLEWARE
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -40,7 +48,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
 ROOT_URLCONF = "movieproject.urls"
+
+
+# TEMPLATES
 
 TEMPLATES = [
     {
@@ -58,7 +70,11 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "movieproject.wsgi.application"
+
+
+# DATABASE
 
 DATABASES = {
     "default": {
@@ -67,7 +83,13 @@ DATABASES = {
     }
 }
 
+
+# PASSWORD VALIDATION
+
 AUTH_PASSWORD_VALIDATORS = []
+
+
+# INTERNATIONALIZATION
 
 LANGUAGE_CODE = "en-us"
 
@@ -77,15 +99,23 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = "static/"
+
+# STATIC FILES
+
+STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "movies" / "static",
 ]
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+# MEDIA FILES
 
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
+
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
