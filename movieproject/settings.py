@@ -4,7 +4,10 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+# =========================================================
 # SECURITY
+# =========================================================
+
 SECRET_KEY = os.environ.get(
     "SECRET_KEY",
     "django-dev-secret-key"
@@ -19,7 +22,9 @@ ALLOWED_HOSTS = [
 ]
 
 
+# =========================================================
 # APPLICATIONS
+# =========================================================
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -36,10 +41,16 @@ INSTALLED_APPS = [
 ]
 
 
+# =========================================================
 # MIDDLEWARE
+# =========================================================
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+
+    # WhiteNoise - serve static files on Render
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -49,16 +60,25 @@ MIDDLEWARE = [
 ]
 
 
+# =========================================================
+# URL CONFIGURATION
+# =========================================================
+
 ROOT_URLCONF = "movieproject.urls"
 
 
+# =========================================================
 # TEMPLATES
+# =========================================================
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
+
         "DIRS": [],
+
         "APP_DIRS": True,
+
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -71,10 +91,16 @@ TEMPLATES = [
 ]
 
 
+# =========================================================
+# WSGI
+# =========================================================
+
 WSGI_APPLICATION = "movieproject.wsgi.application"
 
 
+# =========================================================
 # DATABASE
+# =========================================================
 
 DATABASES = {
     "default": {
@@ -84,12 +110,16 @@ DATABASES = {
 }
 
 
+# =========================================================
 # PASSWORD VALIDATION
+# =========================================================
 
 AUTH_PASSWORD_VALIDATORS = []
 
 
+# =========================================================
 # INTERNATIONALIZATION
+# =========================================================
 
 LANGUAGE_CODE = "en-us"
 
@@ -100,7 +130,9 @@ USE_I18N = True
 USE_TZ = True
 
 
+# =========================================================
 # STATIC FILES
+# =========================================================
 
 STATIC_URL = "/static/"
 
@@ -110,12 +142,22 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+STATICFILES_STORAGE = (
+    "whitenoise.storage.CompressedManifestStaticFilesStorage"
+)
 
+
+# =========================================================
 # MEDIA FILES
+# =========================================================
 
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
 
+
+# =========================================================
+# DEFAULT PRIMARY KEY
+# =========================================================
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
